@@ -1,0 +1,44 @@
+class Pokemon:
+    def __init__(self , name:str, max_health:int, max_hit:int):
+        self.name = name
+        self.health = max_health
+        self.hit_points = max_hit
+       
+    def took_damage(self, damage:int):
+        self.health -= damage
+       
+    def attack(self,enemy):
+        damage = self.hit_points  
+        if damage > 0:
+            enemy.took_damage(damage)
+
+    def has_collapsed(self):
+        return self.health <= 0
+
+def fight(charmander: Pokemon, squirtle: Pokemon):
+    print(f"Hi. My name is {charmander.name} and my health is {charmander.health} and my attack is {charmander.hit_points}!")
+    print(f"Hi. My name is {squirtle.name} and my health is {squirtle.health} and my attack is {squirtle.hit_points}!")
+    
+    while not charmander.has_collapsed() and not squirtle.has_collapsed():
+        charmander.attack(squirtle)
+        print(f"{charmander.name} attacks!")
+        print(f"{squirtle.name} loses health points!")
+        print(f"{squirtle.name} health is {squirtle.health}")
+        if squirtle.has_collapsed():
+            print(f"{squirtle.name} has collapsed. Charmander has won!!!")
+            break
+
+        squirtle.attack(charmander)
+        print(f"{squirtle.name} attacks!")
+        print(f"{charmander.name} loses health points!")
+        print(f"{charmander.name} health is {charmander.health}")
+        
+        if charmander.has_collapsed():
+            print(f"{charmander.name} has collapsed. Squirtle has won!!!")
+            
+    print("the fight is over!!!")
+
+charmander = Pokemon("Charmander", 200, 35,)
+squirtle = Pokemon("Squirtle", 200, 45,)
+
+fight(charmander, squirtle)
